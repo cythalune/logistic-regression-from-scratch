@@ -18,11 +18,16 @@ def predict(w, b, X):
         np.ndarray: Predicted probabilities.
     """
 
-    z = np.dot(w.T, X) + b
+    z = np.dot(w, X.T) + b
     a = sigmoid(z)
 
     return a
 
+def predict_class(probabilities):
+    """
+    Predict binary classes based on probabilities.
+    """
+    return (probabilities >= 0.5).astype(int)
 
 def compute_cost(a, Y):
     """
@@ -67,14 +72,14 @@ def compute_gradient(X, Y, w, b):
     dj_dw = np.zeros(w.shape)
     dj_db = 0
 
-    m = X.shape[1]
+    m = X.shape[0]
 
     for i in range(m):
-        f_wb = predict(w, b, X[:, i])
+        f_wb = predict(w, b, X[i, :])
 
         error = f_wb - Y[i]
 
-        dj_dw += error * X[:, i]
+        dj_dw += error * X[i, :]
         dj_db += error
 
     dj_dw = dj_dw / m
@@ -123,4 +128,3 @@ def gradient_descent(X, Y, w_in, b_in, alpha, num_iters):
 
     return w, b, cost_history
 
-compute_gradient(np.array([[1, 2], [3, 4]]), np.array([0, 1]), np.array([0.5, -0.5]), 0.1)
