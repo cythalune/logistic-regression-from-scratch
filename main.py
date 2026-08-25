@@ -10,7 +10,7 @@ def main():
     # Load the dataset
     X, Y, X_test, Y_test, mean, std = load_data()
 
-    # Train the model using gradient descent
+    # Train the model using gradient descent/ Hyperparameter tuning
     w, b, cost_history = gradient_descent(X, Y, w_in=np.array([0.0] * X.shape[1]), b_in=0, alpha=0.0001, num_iters=10000)
 
     # Make predictions on the test set
