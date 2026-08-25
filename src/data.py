@@ -24,9 +24,11 @@ def load_data():
     "B": 0 
     }).to_numpy()
 
-    X_standardized, X_test_standardized = standardize(X, X_test)
+    X_standardized, X_test_standardized, mean, std = standardize(X, X_test)
+    #X_standardized = X
+    #X_test_standardized = X_test
 
-    return X_standardized, Y, X_test_standardized, Y_test
+    return X_standardized, Y, X_test_standardized, Y_test, mean, std
 
 def standardize(X, X_test):
     """
@@ -45,4 +47,4 @@ def standardize(X, X_test):
     X_standardized = (X - mean) / (std + 1e-8)
     X_test_standardized = (X_test - mean) / (std + 1e-8)
 
-    return X_standardized, X_test_standardized
+    return X_standardized, X_test_standardized, mean, std
